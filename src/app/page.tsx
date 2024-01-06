@@ -17,8 +17,6 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <Intro />
-      <div></div>
-      <div></div>
     </main>
   );
 }

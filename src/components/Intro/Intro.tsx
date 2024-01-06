@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import styles from "./style.module.css";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 export default function Intro() {
+  const backgroundImage = useRef(null);
+  const introImage = useRef(null);
+
+  useLayoutEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const timeLine = gsap.timeline({
+      scrollTrigger: {
+        trigger: document.documentElement,
+        start: 0,
+        end: "+=500px",
+        scrub: true,
+        markers: true,
+      },
+    });
+  }, []);
   return (
     <div className={styles.intro}>
-      <div className={styles.backgroundImage}>
+      <div ref={backgroundImage} className={styles.backgroundImage}>
         <Image
           src={"/images/background.jpeg"}
           fill={true}
@@ -12,7 +29,12 @@ export default function Intro() {
         />
       </div>
       <div className={styles.introContainer}>
-        <div data-scroll data-scroll-speed="0.3" className={styles.introImage}>
+        <div
+          ref={introImage}
+          data-scroll
+          data-scroll-speed="0.3"
+          className={styles.introImage}
+        >
           <Image src={"/images/intro.png"} fill={true} alt="background image" />
         </div>
         <h1 data-scroll data-scroll-speed="0.7">
