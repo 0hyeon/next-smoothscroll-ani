@@ -12,12 +12,14 @@ export default function Intro() {
     const timeLine = gsap.timeline({
       scrollTrigger: {
         trigger: document.documentElement,
-        start: 0,
+        start: "top",
         end: "+=500px",
         scrub: true,
-        markers: true,
       },
     });
+    timeLine
+      .from(backgroundImage.current, { clipPath: "inset(15%)" })
+      .to(introImage.current, { height: "200px" }, 0);
   }, []);
   return (
     <div className={styles.intro}>
