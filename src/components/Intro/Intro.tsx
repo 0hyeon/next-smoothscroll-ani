@@ -1,46 +1,58 @@
+"use client";
 import React, { useLayoutEffect, useRef } from "react";
 import styles from "./style.module.css";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-export default function Intro() {
-  const backgroundImage = useRef(null);
+
+export default function Index() {
+  const background = useRef(null);
   const introImage = useRef(null);
 
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    const timeLine = gsap.timeline({
+
+    const timeline = gsap.timeline({
       scrollTrigger: {
         trigger: document.documentElement,
+        scrub: true,
+        markers: true,
         start: "top",
         end: "+=500px",
-        scrub: true,
       },
     });
-    timeLine
-      .from(backgroundImage.current, { clipPath: "inset(15%)" })
+
+    timeline
+      .from(background.current, { clipPath: `inset(15%)` })
       .to(introImage.current, { height: "200px" }, 0);
   }, []);
+
   return (
-    <div className={styles.intro}>
-      <div ref={backgroundImage} className={styles.backgroundImage}>
+    <div className={styles.homeHeader}>
+      <div className={styles.backgroundImage} ref={background}>
         <Image
           src={"/images/background.jpeg"}
           fill={true}
           alt="background image"
+          priority={true}
         />
       </div>
-      <div className={styles.introContainer}>
+      <div className={styles.intro}>
         <div
           ref={introImage}
           data-scroll
           data-scroll-speed="0.3"
           className={styles.introImage}
         >
-          <Image src={"/images/intro.png"} fill={true} alt="background image" />
+          <Image
+            src={"/images/intro.png"}
+            alt="intro image"
+            fill={true}
+            priority={true}
+          />
         </div>
         <h1 data-scroll data-scroll-speed="0.7">
-          Smooth Scroll
+          SMOOTH SCROLL
         </h1>
       </div>
     </div>
